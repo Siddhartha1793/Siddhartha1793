@@ -22,7 +22,7 @@
         Update: form.Update.value,
         Date: new Date().toLocaleString()
       };
-      fetch('YOUR_SHEETDB_API_URL', { // <-- Replace with your SheetDB API URL
+      fetch('https://sheetdb.io/api/v1/hn9bbfmyt7103', { // <-- Replace with your SheetDB API URL
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data: data })
