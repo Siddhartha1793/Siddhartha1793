@@ -22,11 +22,18 @@
         Update: form.Update.value,
         Date: new Date().toLocaleString()
       };
-      fetch('https://sheetdb.io/api/v1/hn9bbfmyt7103', { // <-- Replace with your SheetDB API URL
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: data })
-      })
+    
+<form name="contact" netlify>
+  <p>
+    <label>Name <input type="text" name="name" /></label>
+  </p>
+  <p>
+    <label>Email <input type="email" name="email" /></label>
+  </p>
+  <p>
+    <button type="submit">Send</button>
+  </p>
+</form>
       .then(response => response.json())
       .then(data => {
         form.reset();
