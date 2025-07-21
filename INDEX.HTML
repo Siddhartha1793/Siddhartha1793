@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Update Form</title>
+</head>
+<body>
+  <h1>Submit Your Update</h1>
+  <form id="update-form">
+    <input type="text" name="Name" placeholder="Your Name" required><br>
+    <input type="email" name="Email" placeholder="Your Email" required><br>
+    <textarea name="Update" placeholder="Your Update" required></textarea><br>
+    <button type="submit">Submit</button>
+  </form>
+  <div id="message"></div>
+  <script>
+    document.getElementById('update-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var form = e.target;
+      var data = {
+        Name: form.Name.value,
+        Email: form.Email.value,
+        Update: form.Update.value,
+        Date: new Date().toLocaleString()
+      };
+      fetch('YOUR_SHEETDB_API_URL', { // <-- Replace with your SheetDB API URL
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: data })
+      })
+      .then(response => response.json())
+      .then(data => {
+        form.reset();
+        document.getElementById('message').innerText = 'Thank you! Your update has been submitted.';
+      })
+      .catch(error => {
+        document.getElementById('message').innerText = 'There was an error. Please try again.';
+      });
+    });
+  </script>
+</body>
