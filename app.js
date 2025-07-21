@@ -1,40 +1,50 @@
-// Placeholder for authentication and update logic
+let customers = [];
+let isAdmin = false;
 
-document.addEventListener('DOMContentLoaded', function() {
-  const loginSection = document.getElementById('login-section');
-  const updateSection = document.getElementById('update-section');
-  const adminSection = document.getElementById('admin-section');
-  const loginForm = document.getElementById('login-form');
-  const updateForm = document.getElementById('update-form');
-  const loginMessage = document.getElementById('login-message');
-  const updateMessage = document.getElementById('update-message');
-  const updatesList = document.getElementById('updates-list');
+function login() {
+  const user = document.getElementById('username').value;
+  const pass = document.getElementById('password').value;
 
-  // Placeholder: Replace with real authentication
-  loginForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    // TODO: Call backend for authentication
-    if(email === 'admin@example.com') {
-      loginSection.style.display = 'none';
-      adminSection.style.display = 'block';
-      updateSection.style.display = 'none';
-      // TODO: Fetch all updates for admin
-      updatesList.innerHTML = '<em>All updates will appear here (admin view).</em>';
-    } else {
-      loginSection.style.display = 'none';
-      updateSection.style.display = 'block';
-      adminSection.style.display = 'none';
-    }
-    loginMessage.textContent = '';
+  if (user === 'admin' && pass === 'admin123') {
+    isAdmin = true;
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    renderCustomers();
+  } else {
+    alert('Invalid login');
+  }
+}
+
+function addCustomer() {
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
+
+  if (!name || !email || !phone) {
+    alert('All fields required');
+    return;
+  }
+
+  customers.push({ name, email, phone });
+  renderCustomers();
+  document.getElementById('name').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('phone').value = '';
+}
+
+function renderCustomers() {
+  const list = document.getElementById('customerList');
+  list.innerHTML = '';
+  customers.forEach((c, index) => {
+    const div = document.createElement('div');
+    div.className = 'customer';
+    div.innerHTML = `<strong>${c.name}</strong><br>${c.email}<br>${c.phone} <br>` +
+      (isAdmin ? `<button onclick="deleteCustomer(${index})">Delete</button>` : '');
+    list.appendChild(div);
   });
+}
 
-  updateForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const updateText = document.getElementById('update-text').value;
-    // TODO: Call backend to submit update
-    updateMessage.textContent = 'Update submitted! (placeholder)';
-    updateForm.reset();
-  });
-}); 
+function deleteCustomer(index) {
+  customers.splice(index, 1);
+  renderCustomers();
+}
