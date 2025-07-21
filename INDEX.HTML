@@ -1,42 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Employee Update Form</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM Website</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Submit Your Update</h1>
-<form name="contact" netlify>
-  <p>
-    <label>Name <input type="text" name="name" /></label>
-  </p>
-  <p>
-    <label>Email <input type="email" name="email" /></label>
-  </p>
-  <p>
-    <button type="submit">Send</button>
-  </p>
-</form>
-  <div id="message"></div>
-  <script>
-    document.getElementById('update-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var form = e.target;
-      var data = {
-        Name: form.Name.value,
-        Email: form.Email.value,
-        Update: form.Update.value,
-        Date: new Date().toLocaleString()
-      };
-    
+  <div class="container">
+    <h1>CRM Dashboard</h1>
+    <div class="login-section" id="loginSection">
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+    </div>
 
-      .then(response => response.json())
-      .then(data => {
-        form.reset();
-        document.getElementById('message').innerText = 'Thank you! Your update has been submitted.';
-      })
-      .catch(error => {
-        document.getElementById('message').innerText = 'There was an error. Please try again.';
-      });
-    });
-  </script>
+    <div class="dashboard" id="dashboard" style="display: none;">
+      <h2>Customer List</h2>
+      <div id="customerList"></div>
+
+      <h2>Add Customer</h2>
+      <input type="text" id="name" placeholder="Name" />
+      <input type="email" id="email" placeholder="Email" />
+      <input type="text" id="phone" placeholder="Phone" />
+      <button onclick="addCustomer()">Add</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
+</html>
